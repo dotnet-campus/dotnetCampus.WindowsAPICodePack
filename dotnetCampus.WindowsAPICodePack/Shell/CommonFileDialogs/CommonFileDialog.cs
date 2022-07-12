@@ -315,10 +315,9 @@ namespace dotnetCampus.WindowsAPICodePack.Dialogs
         }
 
         /// <summary>
-        /// Gets or sets the default file extension to be added to file names. If the value is null
-        /// or string.Empty, the extension is not added to the file names.
+        /// Gets or sets the default file extension to be added to file names.
         /// </summary>
-        public string DefaultExtension { get; set; }
+        public string DefaultExtension { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets the index for the currently selected file type.
@@ -392,21 +391,7 @@ namespace dotnetCampus.WindowsAPICodePack.Dialogs
                     throw new InvalidOperationException(LocalizedMessages.CommonFileDialogMultipleFiles);
                 }
 
-                string returnFilename = filenames[0];
-
-                // "If extension is a null reference (Nothing in Visual 
-                // Basic), the returned string contains the specified 
-                // path with its extension removed."  Since we do not want 
-                // to remove any existing extension, make sure the 
-                // DefaultExtension property is NOT null.
-
-                // if we should, and there is one to set...
-                if (!string.IsNullOrEmpty(DefaultExtension))
-                {
-                    returnFilename = System.IO.Path.ChangeExtension(returnFilename, DefaultExtension);
-                }
-
-                return returnFilename;
+                return filenames[0];
             }
         }
 
@@ -759,8 +744,9 @@ namespace dotnetCampus.WindowsAPICodePack.Dialogs
             }
 
             // Set the default extension
-            if (!string.IsNullOrEmpty(DefaultExtension))
+            if (DefaultExtension != null)
             {
+                // SetDefaultExtension with empty string, will make the extensiton of filename changing with file type.
                 dialog.SetDefaultExtension(DefaultExtension);
             }
 
