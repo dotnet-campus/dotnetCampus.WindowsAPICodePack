@@ -16,7 +16,7 @@ jobs:
         dotnet-version: |
           3.1.x
           5.0.x
-          6.0.1
+          6.0.100
 
     - name: Build with dotnet
       run: dotnet build --configuration Release
